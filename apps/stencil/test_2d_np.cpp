@@ -2,7 +2,7 @@
 #include <image_io.h>
 #include <sys/time.h>
 
-#define TIMES 100
+#define TIMES 20
 struct timeval start, end;
 
 int print(Image<float> input) {
@@ -15,13 +15,14 @@ int print(Image<float> input) {
 }
 
 extern "C" {
-#include "heat_1d.h"
-}Image<float> halide_heat_1d(Image<float> input) {
-	Image<float> output(input.width(), input.height());
-	heat_1d(input, output);
+#include "heat_2d_np.h"
+}
+Image<float> halide_heat_2d(Image<float> input) {
+	Image<float> output(input.width(), input.height(), input.channels());
+	heat_2d_np(input, output);
 	gettimeofday(&start, 0);
 	for (int i = 0; i < TIMES; ++i) {
-		heat_1d(input, output);
+		heat_2d_np(input, output);
 	}
 	gettimeofday(&end, 0);
 	return output;
@@ -36,17 +37,19 @@ int main(int argc, char **argv) {
 	int N_SIZE = atoi(argv[1]);
 	int T_SIZE = atoi(argv[2]);
 	printf("N_SIZE = %d, T_SIZE = %d\n", N_SIZE, T_SIZE);
-	Image<float> input = Image<float>(N_SIZE, T_SIZE);
+	Image<float> input = Image<float>(N_SIZE, N_SIZE, T_SIZE);
 
-	for (int x = 0; x < input.width(); x++) {
-		input(x, 0) = 1.0 * (rand() % BASE);
-		//input(x, 0) = 1.0 * x;
-		input(x, 1) = 0;
+	for (int y = 0; y < input.height(); y++) {
+		for (int x = 0; x < input.width(); x++) {
+			input(x, y, 0) = 1.0 * (rand() % BASE);
+			//input(x,y, 0) = 1.0 * x;
+			input(x, y, 1) = 0;
+		}
 	}
 
 	//print(input);
 
-	Image<float> output = halide_heat_1d(input);
+	Image<float> output = halide_heat_2d(input);
 
 	float halide_time = ((end.tv_sec - start.tv_sec)
 			+ (end.tv_usec - start.tv_usec) / 100000000.0f) / TIMES;

@@ -1,4 +1,8 @@
-heat_1d
-heat_1d.h
-heat_1d.0
-test
+heat_1d_np
+heat_1d_np.o
+heat_1d_np.h
+test_1d_np
+heat_2d_np
+heat_2d_np.o
+heat_2d_np.h
+test_2d_np

@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 
 	heat.compute_root();
 
-	heat.compile_to_file("heat_1d", input);
+	heat.compile_to_file("heat_1d_np", input);
 
 	return 0;
 }
