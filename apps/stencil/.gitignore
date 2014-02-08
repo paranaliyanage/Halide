@@ -6,3 +6,7 @@ heat_2d_np
 heat_2d_np.o
 heat_2d_np.h
 test_2d_np
+heat_2d_np_zero
+heat_2d_np_zero.o
+heat_2d_np_zero.h
+test_2d_np_zero
