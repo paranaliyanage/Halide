@@ -23,7 +23,7 @@ heat_2d_np.o: heat_2d_np
 
 test_2d_np: heat_2d_np.o test_2d_np.cpp
 	$(CXX) -I../support -O3 -ffast-math -Wall -Werror test_2d_np.cpp heat_2d_np.o -lpthread -ldl -o test_2d_np  $(PNGFLAGS) $(CUDA_LDFLAGS) $(OPENCL_LDFLAGS)
-	./test_2d_np 128 128
+	./test_2d_np 5 5
 
 clean:
 	rm -f heat_1d_np heat_1d_np.o heat_1d_np.h test_1d_np heat_2d_np heat_2d_np.o heat_2d_np.h test_2d_np

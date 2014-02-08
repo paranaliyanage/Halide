@@ -6,9 +6,11 @@
 struct timeval start, end;
 
 int print(Image<float> input) {
-	for (int y = 0; y < input.height(); y++) {
-		for (int x = 0; x < input.width(); x++) {
-			printf("value in %d %d is %f\n", y, x, input(x, y));
+	for (int z = 0; z < input.channels(); z++) {
+		for (int y = 0; y < input.height(); y++) {
+			for (int x = 0; x < input.width(); x++) {
+				printf("value in %d %d %d is %f\n", y, x, z, input(x, y, z));
+			}
 		}
 	}
 	return 0;
@@ -16,8 +18,7 @@ int print(Image<float> input) {
 
 extern "C" {
 #include "heat_2d_np.h"
-}
-Image<float> halide_heat_2d(Image<float> input) {
+}Image<float> halide_heat_2d(Image<float> input) {
 	Image<float> output(input.width(), input.height(), input.channels());
 	heat_2d_np(input, output);
 	gettimeofday(&start, 0);
