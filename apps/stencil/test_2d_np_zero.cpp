@@ -18,7 +18,8 @@ int print(Image<float> input) {
 
 extern "C" {
 #include "heat_2d_np_zero.h"
-}Image<float> halide_heat_2d_zero(Image<float> input) {
+}
+Image<float> halide_heat_2d_zero(Image<float> input) {
 	Image<float> output(input.width(), input.height(), input.channels());
 	heat_2d_np_zero(input, output);
 	gettimeofday(&start, 0);

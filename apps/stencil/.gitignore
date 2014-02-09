@@ -10,3 +10,7 @@ heat_2d_np_zero
 heat_2d_np_zero.o
 heat_2d_np_zero.h
 test_2d_np_zero
+heat_3d_np
+heat_3d_np.o
+heat_3d_np.h
+test_3d_np

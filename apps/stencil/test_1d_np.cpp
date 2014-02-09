@@ -16,7 +16,8 @@ int print(Image<float> input) {
 
 extern "C" {
 #include "heat_1d_np.h"
-}Image<float> halide_heat_1d(Image<float> input) {
+}
+Image<float> halide_heat_1d(Image<float> input) {
 	Image<float> output(input.width(), input.height());
 	heat_1d_np(input, output);
 	gettimeofday(&start, 0);
