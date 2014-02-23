@@ -22,7 +22,7 @@ Func heat_step(Func input, Expr max_val) {
 
 int main(int argc, char **argv) {
 	ImageParam input(Float(32), 1);
-	const unsigned int steps = 12;
+	const unsigned int steps = 6;
 	const unsigned int macro_steps = steps / 3;
 	Var x("x");
 	Func heat[steps + 1];
