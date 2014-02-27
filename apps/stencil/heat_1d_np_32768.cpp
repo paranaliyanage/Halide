@@ -16,18 +16,15 @@ Func heat_step(Func input, Expr max_val) {
 	heat_2(x) = 0.125f
 			* (clamped_2(x - 1) - 2.0f * clamped_2(x) + clamped_2(x + 1));
 
-	Halide::Var _x2, _x6, _y7, _x10, _y11;
-	clamped_0.reorder(y, x).reorder_storage(y, x).compute_at(heat_1, y);
-	heat_0.split(x, x, _x2, 16).reorder(_x2, x, y).reorder_storage(y, x).vectorize(
-			_x2, 8).compute_at(heat_1, _y7);
-	clamped_1.reorder(y, x).reorder_storage(x, y).vectorize(y, 8).compute_at(
-			heat_1, _x6);
-	heat_1.split(x, x, _x6, 8).split(y, y, _y7, 4).reorder(_x6, _y7, x, y).reorder_storage(
-			x, y).vectorize(_x6, 2).parallel(y).compute_root();
-	clamped_2.reorder(x, y).reorder_storage(x, y).vectorize(x, 4).compute_at(
+	Halide::Var _x0, _x1, _x3, _x4, _x5;
+	clamped_0.split(x, x, _x0, 16).reorder(_x0, x).vectorize(_x0, 2).compute_at(
+			heat_0, _x1);
+	heat_0.split(x, x, _x1, 8).reorder(_x1, x).vectorize(_x1, 4).compute_root();
+	clamped_1.vectorize(x, 2).compute_at(heat_1, x);
+	heat_1.split(x, x, _x3, 4).reorder(_x3, x).compute_root();
+	clamped_2.split(x, x, _x4, 8).reorder(_x4, x).vectorize(_x4, 4).compute_at(
 			heat_2, x);
-	heat_2.split(x, x, _x10, 64).split(y, y, _y11, 4).reorder(_x10, _y11, x, y).reorder_storage(
-			y, x).vectorize(_x10, 8).parallel(y).compute_root();
+	heat_2.split(x, x, _x5, 64).reorder(_x5, x).vectorize(_x5, 8).compute_root();
 
 	return heat_2;
 
