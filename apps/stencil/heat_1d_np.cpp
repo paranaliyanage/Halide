@@ -15,7 +15,7 @@ Func heat_step(Func input, Expr max_val) {
 	clamped_2(x) = heat_1(clamp(x, 1, max_val));
 	heat_2(x) = 0.125f
 			* (clamped_2(x - 1) - 2.0f * clamped_2(x) + clamped_2(x + 1));
-
+	heat_2.compute_root();
 	return heat_2;
 
 }
@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 	for (int t = 1; t <= macro_steps; t++) {
 		heat[t] = heat_step(heat[t - 1], input.width() - 2);
 	}
-	heat[macro_steps].compute_root();
+	//heat[macro_steps].compute_root();
 
 	heat[macro_steps].compile_to_file("heat_1d_np", input);
 	return 0;
