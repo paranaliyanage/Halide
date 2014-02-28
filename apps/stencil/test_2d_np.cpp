@@ -27,7 +27,7 @@ Image<float> halide_heat_2d(Image<float> input) {
 		heat_2d_np(input, output);
 		gettimeofday(&end, 0);
 		halide_time = std::min(halide_time,
-				1.0e3
+				1000.0f
 						* ((end.tv_sec - start.tv_sec)
 								+ (end.tv_usec - start.tv_usec) / 1000000.0f));
 	}
